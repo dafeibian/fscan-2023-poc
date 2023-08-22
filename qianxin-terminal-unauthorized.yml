@@ -1,0 +1,11 @@
+name: poc-yaml-qianxin-terminal-unauthorized
+rules:
+  - method: GET
+    path: /runtime/admin_log_conf.cache
+    expression: |
+      response.body.bcontains(b'/host/autodiscovery/savestatusconf') || response.body.bcontains(b'/api/node/login')
+detail:
+  author: qianxin-terminal-unauthorized
+  links:
+    - https://www.baidu.com
+    - app="360天擎终端安全管理系统"

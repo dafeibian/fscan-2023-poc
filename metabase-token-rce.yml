@@ -1,0 +1,11 @@
+name: poc-yaml-metabase-token-rce
+rules:
+  - method: GET
+    path: /api/session/properties
+    expression: |
+      response.status == 200 && response.body.bcontains(b'setup-token')
+detail:
+  author: metabase-token-rce
+  links:
+    - https://www.baidu.com
+    - app="Metabase" 

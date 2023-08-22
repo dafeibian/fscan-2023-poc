@@ -1,0 +1,12 @@
+name: poc-yaml-jeecg-boot-x-access-token
+rules:
+  - method: GET
+    path: /jeecg-boot/actuator/httptrace
+    follow_redirects: false
+    expression: |
+       response.body.bcontains(b'x-access-token')
+detail:
+  description: jeecg-boot-x-access-token
+  links:
+    - https://www.baidu.com
+    - body="jeecg-boot"

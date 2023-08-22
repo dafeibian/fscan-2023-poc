@@ -1,0 +1,11 @@
+name: poc-yaml-hikvision-center-env
+rules:
+  - method: GET
+    path: /artemis-portal/artemis/env
+    expression: |
+      response.status == 200 && response.body.bcontains(b"hikvision")
+detail:
+  author: hikvision-center-env
+  links:
+    - https://www.baidu.com
+    - app="HIKVISION-iSecure-Center"

